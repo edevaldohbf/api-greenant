@@ -777,6 +777,11 @@
     path-to-regexp "3.2.0"
     tslib "2.6.2"
 
+"@nestjs/mapped-types@*":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-2.0.5.tgz#485d6b44e19779c98d04e52bd1d2bcc7001df0ea"
+  integrity sha512-bSJv4pd6EY99NX9CjBIyn4TVDoSit82DUZlL4I3bqNfy5Gt+gXTa86i3I/i0iIV9P4hntcGM5GyO+FhZAhxtyg==
+
 "@nestjs/platform-express@^10.0.0":
   version "10.3.9"
   resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-10.3.9.tgz#769c6027f8b3d1e144218403762710f96a174821"
@@ -860,6 +865,11 @@
   version "5.15.1-1.5675a3182f972f1a8f31d16eee6abf4fd54910e3"
   resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-5.15.1-1.5675a3182f972f1a8f31d16eee6abf4fd54910e3.tgz#c1b8da95283b53afbaab292a5782a6acaec34070"
   integrity sha512-7csphKGCG6n/cN1MkT1mJvQ78Ir18IknlYZ8eyEoLKdQBb0HscR/6TyPmzqrMA7Rz01K1KeXqctwAqxtA/lKQg==
+
+"@prisma/engines-version@^5.16.0-21.9f3337c21c619aa48465f3766f6466c74ec762fb":
+  version "5.16.0-21.9f3337c21c619aa48465f3766f6466c74ec762fb"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-5.16.0-21.9f3337c21c619aa48465f3766f6466c74ec762fb.tgz#84ae37e89c372572325cdf4fa7bad0c2057c437f"
+  integrity sha512-i9Cy/8XUXWg75Ux1g0zodq72HiTPzI9WxUJ/44IIOOWoVm/hRUKRu8bu63nQ5pA4LhvwBMQNxNdM9I7gzpg/qQ==
 
 "@prisma/engines@5.15.1":
   version "5.15.1"

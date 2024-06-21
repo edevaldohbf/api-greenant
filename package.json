@@ -22,8 +22,10 @@
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "^5.15.1",
+    "@prisma/engines-version": "^5.16.0-21.9f3337c21c619aa48465f3766f6466c74ec762fb",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
@@ -73,5 +75,13 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "build": {
+    "files": [
+      {
+        "from": "node_modules/.prisma/client/",
+        "to": "node_modules/.prisma/client/"
+      }
+    ]
   }
 }

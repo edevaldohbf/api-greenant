@@ -12,3 +12,27 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model DeviceMeasurementsRaw {
+  id            Int      @default(autoincrement()) @id
+  device_id     String      
+  timestamp     DateTime
+  active_energy Int
+  active_power  Int
+}
+
+model DeviceMeasurementsHour {
+  id            Int      @default(autoincrement()) @id
+  device_id     String      
+  timestamp     DateTime
+  active_energy Int
+  active_power  Int
+}
+
+model DeviceMeasurementsDay {
+  id            Int      @default(autoincrement()) @id
+  device_id     String      
+  timestamp     DateTime
+  active_energy Int
+  active_power  Int
+}
