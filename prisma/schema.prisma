@@ -14,25 +14,31 @@ datasource db {
 }
 
 model DeviceMeasurementsRaw {
-  id            Int      @default(autoincrement()) @id
-  device_id     String      
-  timestamp     DateTime
-  active_energy Int
-  active_power  Int
+  id                Int      @default(autoincrement()) @id
+  deviceId          String      
+  timestamp         DateTime
+  activeEnergy      Int
+  activePower       Int
 }
 
 model DeviceMeasurementsHour {
-  id            Int      @default(autoincrement()) @id
-  device_id     String      
-  timestamp     DateTime
-  active_energy Int
-  active_power  Int
+  id                Int      @default(autoincrement()) @id
+  deviceId          String      
+  timestamp         DateTime
+  activeEnergy      Int
+  activeEnergyAvg   Int?      @default(0)
+  activePower       Int
+  activePowerAvg    Int?      @default(0)
+  aggregateCount    Int?      @default(1)
 }
 
 model DeviceMeasurementsDay {
-  id            Int      @default(autoincrement()) @id
-  device_id     String      
-  timestamp     DateTime
-  active_energy Int
-  active_power  Int
+  id                Int       @default(autoincrement()) @id
+  deviceId          String      
+  timestamp         DateTime
+  activeEnergy      Int
+  activeEnergyAvg   Int?      @default(0)
+  activePower       Int
+  activePowerAvg    Int?      @default(0)
+  aggregateCount    Int?      @default(1)
 }
