@@ -19,7 +19,7 @@ async function main() {
   for (const measurement of measurementDataJson.measurementData) {
     let deviceId = '';
 
-    // Sanization of data
+    // Sanitization of data
     if (measurement['id-dispositivo']) {
       deviceId = measurement['id-dispositivo'];
     } else if (measurement['uid']) {
