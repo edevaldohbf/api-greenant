@@ -44,32 +44,10 @@ A [Nest](https://github.com/nestjs/nest) framework TypeScript repository integra
   - **module file** - Unifies all module imports that device-measurements need
   - **main file** - Starts the server and initializes all modules
 
-## Installation
-You can install and run the application using Docker or directly through your terminal. If you choose the latter, a Postgres database must be provided.
+## Install and Run with Docker
 
-### Install and Run with Docker
-Ensure that you have Docker installed on your PC. Here is a [tutorial for installation on Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
+Ensure that you have Docker installed on your PC. Here is a [tutorial for installation on Ubuntu](https://docs.docker.com/engine/install/ubuntu/). Execute the following commands will generate one containers for api and another one for database.
 
-```bash
-# Build Docker images without using the cache
-$ docker compose build --no-cache
-
-# Run Docker Compose and start containers. The -d flag runs Docker Compose as a background task.
-$ docker compose up -d
-```
-After running these commands, you can start populating your database with:
-```bash
-# This command will update the database using a JSON file located at /prisma/seed
-$ yarn populate
-```
-The API is now populated and running on http://localhost:3000. To test if it is working, access the route http://localhost:3000/api/health-check.
-
-** To stop the Docker-related services, run the following command:
-```bash
-$ docker compose down
-```
-
-### Install and Run with Command Line
 Ensure that you have the correct version of Node.js. This project uses version [20.14.0](https://nodejs.org/pt/blog/release/v20.14.0).
 ```bash
 # Initialize the configuration by creating an env file
@@ -77,27 +55,24 @@ cp .env-example .env
 
 # Install all dependencies
 $ yarn install
-```
-After running these commands, you can start populating your database with:
-```bash
-# This command will update the Prisma schemas
-$ prisma generate
 
-# This command will update the database using a JSON file located at /prisma/seed
+# Build Docker images without using the cache
+$ docker compose build --no-cache
+
+# Run Docker Compose to start containers. The -d flag runs Docker Compose as a background task.
+$ docker compose up -d
+```
+
+The API is now running on http://localhost:3000. To test if it is working, access the route http://localhost:3000/api/health-check.
+
+```bash
+# This command will populate the database using a JSON file located at /prisma/seed
 $ yarn populate
 ```
 
-## Running the app
-
+** To stop the Docker-related services, run the following command:
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+$ docker compose down
 ```
 
 ## Test
