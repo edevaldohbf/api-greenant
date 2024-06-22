@@ -4,6 +4,7 @@ import { DeviceMeasurementsHourService } from './services/device-measurements-ho
 import { DeviceMeasurementsDayService } from './services/device-measurements-day.service';
 import { DeviceMeasurementsController } from './device-measurements.controller';
 import { DatabaseService } from 'src/database/database.service';
+import { DateUtils } from 'src/utils/date/date.utils';
 
 @Module({
   controllers: [DeviceMeasurementsController],
@@ -12,6 +13,7 @@ import { DatabaseService } from 'src/database/database.service';
     DeviceMeasurementsHourService,
     DeviceMeasurementsDayService,
     DatabaseService,
+    DateUtils,
   ],
 })
 export class DeviceMeasurementsModule {}
