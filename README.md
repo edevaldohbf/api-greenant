@@ -24,12 +24,67 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A [Nest](https://github.com/nestjs/nest) framework TypeScript repository integrated with [Prisma ORM](https://www.prisma.io/).
+
+
+## Folder Structure
+ **dist** - Compiled code
+- **prisma** - ORM configuration
+  - **migrations** - Database updates
+  - **seed** - Database seed script and JSON asset for the script
+  - **schema.prisma** - Tables and columns configuration
+- **src** - Contains all functional code
+- **database** - Contains the link between the functional code and Prisma ORM
+- **health-check** - Contains an endpoint to verify if the application is online
+- **utils** - Contains structures that can be used in multiple modules
+- **device-measurements**
+  - **dto** - Contains Data Transfer Objects for validation of request bodies and query parameters
+  - **services** - Contains the business logic of the application and is responsible for database queries
+  - **controller file** - Sets the endpoints and handles query parameters. Following this pattern, the service will always receive quality data.
+  - **module file** - Unifies all module imports that device-measurements need
+  - **main file** - Starts the server and initializes all modules
 
 ## Installation
+You can install and run the application using Docker or directly through your terminal. If you choose the latter, a Postgres database must be provided.
+
+### Install and Run with Docker
+Ensure that you have Docker installed on your PC. Here is a [tutorial for installation on Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
 
 ```bash
+# Build Docker images without using the cache
+$ docker compose build --no-cache
+
+# Run Docker Compose and start containers. The -d flag runs Docker Compose as a background task.
+$ docker compose up -d
+```
+After running these commands, you can start populating your database with:
+```bash
+# This command will update the database using a JSON file located at /prisma/seed
+$ yarn populate
+```
+The API is now populated and running on http://localhost:3000. To test if it is working, access the route http://localhost:3000/api/health-check.
+
+** To stop the Docker-related services, run the following command:
+```bash
+$ docker compose down
+```
+
+### Install and Run with Command Line
+Ensure that you have the correct version of Node.js. This project uses version [20.14.0](https://nodejs.org/pt/blog/release/v20.14.0).
+```bash
+# Initialize the configuration by creating an env file
+cp .env-example .env
+
+# Install all dependencies
 $ yarn install
+```
+After running these commands, you can start populating your database with:
+```bash
+# This command will update the Prisma schemas
+$ prisma generate
+
+# This command will update the database using a JSON file located at /prisma/seed
+$ yarn populate
 ```
 
 ## Running the app
@@ -61,13 +116,3 @@ $ yarn run test:cov
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
