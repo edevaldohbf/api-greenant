@@ -64,8 +64,6 @@ export class DeviceMeasurementsController {
         deviceMeasurementsDay,
       };
     } catch (error) {
-      console.log('error', error);
-
       throw new HttpException(
         'Error in path params or req body',
         HttpStatus.BAD_REQUEST,
@@ -84,6 +82,8 @@ export class DeviceMeasurementsController {
       const startDate = await this.dateUtils.isValidDate(queryParams.startDate);
       const endDate = await this.dateUtils.isValidDate(queryParams.endDate);
 
+      const completeData = queryParams.completeData;
+
       if (queryParams.resolution == 'raw') {
         const deviceMeasurements =
           await this.deviceMeasurementsRawService.findAll(
@@ -92,10 +92,26 @@ export class DeviceMeasurementsController {
             endDate,
           );
 
+        if (completeData) {
+          return {
+            measurements: deviceMeasurements,
+          };
+        }
+
+        const newDeviceMeasurements = deviceMeasurements.map(
+          ({
+            deviceId: deviceId,
+            timestamp: date,
+            activeEnergy: activeEnergy,
+          }) => ({
+            deviceId,
+            date,
+            activeEnergy,
+          }),
+        );
+
         return {
-          deviceId: listDeviceId,
-          queryParams: queryParams,
-          deviceMeasurements: deviceMeasurements,
+          measurements: newDeviceMeasurements,
         };
       } else if (queryParams.resolution == 'hour') {
         const deviceMeasurements =
@@ -105,10 +121,26 @@ export class DeviceMeasurementsController {
             endDate,
           );
 
+        if (completeData) {
+          return {
+            measurements: deviceMeasurements,
+          };
+        }
+
+        const newDeviceMeasurements = deviceMeasurements.map(
+          ({
+            deviceId: deviceId,
+            timestamp: date,
+            activeEnergy: accumulatedEnergy,
+          }) => ({
+            deviceId,
+            date,
+            accumulatedEnergy,
+          }),
+        );
+
         return {
-          deviceId: listDeviceId,
-          queryParams: queryParams,
-          deviceMeasurements: deviceMeasurements,
+          measurements: newDeviceMeasurements,
         };
       } else {
         const deviceMeasurements =
@@ -118,15 +150,29 @@ export class DeviceMeasurementsController {
             endDate,
           );
 
+        if (completeData) {
+          return {
+            measurements: deviceMeasurements,
+          };
+        }
+
+        const newDeviceMeasurements = deviceMeasurements.map(
+          ({
+            deviceId: deviceId,
+            timestamp: date,
+            activeEnergy: accumulatedEnergy,
+          }) => ({
+            deviceId,
+            date,
+            accumulatedEnergy,
+          }),
+        );
+
         return {
-          deviceId: listDeviceId,
-          queryParams: queryParams,
-          deviceMeasurements: deviceMeasurements,
+          measurements: newDeviceMeasurements,
         };
       }
     } catch (error) {
-      console.log('error', error);
-
       throw new HttpException(
         'Error in path or query params',
         HttpStatus.BAD_REQUEST,

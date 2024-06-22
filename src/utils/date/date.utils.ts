@@ -10,8 +10,6 @@ export class DateUtils {
 
     if (dateParts.length > 2) {
       const date = dateParts[0] + ' ' + dateParts[1] + '+' + dateParts[2];
-      console.log('date', date);
-
       responseDate = new Date(date);
     } else {
       responseDate = new Date(reqDate);
