@@ -82,36 +82,50 @@ export class DeviceMeasurementsController {
       const startDate = await this.dateUtils.isValidDate(queryParams.startDate);
       const endDate = await this.dateUtils.isValidDate(queryParams.endDate);
 
-      const completeData = queryParams.completeData;
+      const resolution = queryParams.resolution
+        ? queryParams.resolution
+        : 'day';
+
+      const deviceMeasurements =
+        await this.deviceMeasurementsRawService.findAll(
+          listDeviceId,
+          startDate,
+          endDate,
+          resolution,
+        );
+
+      return {
+        measurements: deviceMeasurements,
+      };
+    } catch (error) {
+      throw new HttpException(
+        'Error in path or query params',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Get(':listDeviceId/measurements/complete-data')
+  async findAllCompleteData(
+    @Param('listDeviceId') deviceId: string,
+    @Query() queryParams: QueryParamsDeviceMeasurementDto,
+  ) {
+    try {
+      const listDeviceId = deviceId.split(',');
+
+      const startDate = await this.dateUtils.isValidDate(queryParams.startDate);
+      const endDate = await this.dateUtils.isValidDate(queryParams.endDate);
 
       if (queryParams.resolution == 'raw') {
         const deviceMeasurements =
-          await this.deviceMeasurementsRawService.findAll(
+          await this.deviceMeasurementsRawService.findAllCompleteData(
             listDeviceId,
             startDate,
             endDate,
           );
 
-        if (completeData) {
-          return {
-            measurements: deviceMeasurements,
-          };
-        }
-
-        const newDeviceMeasurements = deviceMeasurements.map(
-          ({
-            deviceId: deviceId,
-            timestamp: date,
-            activeEnergy: activeEnergy,
-          }) => ({
-            deviceId,
-            date,
-            activeEnergy,
-          }),
-        );
-
         return {
-          measurements: newDeviceMeasurements,
+          measurements: deviceMeasurements,
         };
       } else if (queryParams.resolution == 'hour') {
         const deviceMeasurements =
@@ -121,26 +135,8 @@ export class DeviceMeasurementsController {
             endDate,
           );
 
-        if (completeData) {
-          return {
-            measurements: deviceMeasurements,
-          };
-        }
-
-        const newDeviceMeasurements = deviceMeasurements.map(
-          ({
-            deviceId: deviceId,
-            timestamp: date,
-            activeEnergy: accumulatedEnergy,
-          }) => ({
-            deviceId,
-            date,
-            accumulatedEnergy,
-          }),
-        );
-
         return {
-          measurements: newDeviceMeasurements,
+          measurements: deviceMeasurements,
         };
       } else {
         const deviceMeasurements =
@@ -150,26 +146,8 @@ export class DeviceMeasurementsController {
             endDate,
           );
 
-        if (completeData) {
-          return {
-            measurements: deviceMeasurements,
-          };
-        }
-
-        const newDeviceMeasurements = deviceMeasurements.map(
-          ({
-            deviceId: deviceId,
-            timestamp: date,
-            activeEnergy: accumulatedEnergy,
-          }) => ({
-            deviceId,
-            date,
-            accumulatedEnergy,
-          }),
-        );
-
         return {
-          measurements: newDeviceMeasurements,
+          measurements: deviceMeasurements,
         };
       }
     } catch (error) {
