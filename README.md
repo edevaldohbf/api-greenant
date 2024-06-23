@@ -26,6 +26,40 @@
 
 A [Nest](https://github.com/nestjs/nest) framework TypeScript repository integrated with [Prisma ORM](https://www.prisma.io/).
 
+## Documentation
+All endpoints have been documented with Postman can be accessed via this [link](https://documenter.getpostman.com/view/14821693/2sA3XWdJjW).
+
+### Endpoints and How each one Works
+
+- **Health Check**
+  - Method: GET
+  - Url: /api/health-check
+  - Query Params: None
+  - Comments: This endpoint is used to verify if the server is running.
+- **Get Measurement**
+  - Method: GET
+  - Url: /api/device/mymeter-uid,mymeter-02-uid/measurements?startDate=2022-06-01 00:00:00+00&endDate=2022-06-01 05:00:00+00&resolution=raw
+  - Query Params:
+    - startDate: date in ISO format
+    - endDate: date in ISO format
+    - resolution: raw | hour | day (default)
+  - Comments: This is the primary endpoint. It returns a JSON object containing deviceId, date, and activeEnergy for raw data, or accumulatedEnergy for hourly and daily data.
+- **Get Measurement Complete Data**
+  - Method: GET
+  - Url: /api/device/mymeter-uid,mymeter-02-uid/measurements/complete-data?startDate=2022-06-01 00:00:00+00&endDate=2022-06-01 05:00:00+00&resolution=raw
+  - Query Params:
+    - startDate: date in iso format
+    - endDate: date in iso format
+    - resolution: raw | hour | day (Default)
+  - Comments: This endpoint is supplementary. It utilizes pre-calculated data and works in conjunction with the next endpoint. When data is added to the measurementsRaw table, entries are automatically created or updated in the measurementsHour and measurementsDay tables. This allows for efficient data retrieval with minimal load time. However, it is limited to querying data with specific start times. This endpoint returns the data from the Get Measurement endpoint, adding activeEnergy sum, activeEnergy average, activePower sum, activePower average, and aggregateCount.
+- **Create Measurement**
+  - Method: POST
+  - Url: /api/device/mymeter-uid/measurements
+  - Body:
+    - timestamp: date in iso format
+    - activeEnergy: integer number
+    - activePower: integer number
+  - Comments: This supplementary endpoint creates data and calculates entries in all three tables. With each data input, new entries are created or updated. When an entry is updated, the calculated columns are recalculated.
 
 ## Folder Structure
 - **dist** - Compiled code
