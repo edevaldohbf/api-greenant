@@ -28,7 +28,7 @@ A [Nest](https://github.com/nestjs/nest) framework TypeScript repository integra
 
 
 ## Folder Structure
- **dist** - Compiled code
+- **dist** - Compiled code
 - **prisma** - ORM configuration
   - **migrations** - Database updates
   - **seed** - Database seed script and JSON asset for the script
