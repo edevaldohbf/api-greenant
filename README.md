@@ -113,13 +113,10 @@ $ docker compose down
 
 ```bash
 # unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
+$ yarn test
 
 # test coverage
-$ yarn run test:cov
+$ yarn test:cov
 ```
 
 ## Support
