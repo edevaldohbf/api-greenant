@@ -77,10 +77,10 @@ export class DeviceMeasurementsRawService {
               date: startHour,
               accumulatedEnergy: measurement.activeEnergy,
             };
+          } else {
+            accumulateMeasurements[key].accumulatedEnergy +=
+              measurement.activeEnergy;
           }
-
-          accumulateMeasurements[key].accumulatedEnergy +=
-            measurement.activeEnergy;
 
           return accumulateMeasurements;
         },
